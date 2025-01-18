@@ -1,7 +1,7 @@
 # MultiProxyFinder
 Proxy finder for HTTPS and SOCKS proxy
 
-This tool will help you easily get HTTPS or SOCKS proxies for certain or all countries.
+This tool will help you easily get HTTPS or SOCKS proxies for certain or all countries
 
 # How to use it?
 ◉ Run the script using <code>python3 main.py</code>
@@ -13,3 +13,11 @@ This tool will help you easily get HTTPS or SOCKS proxies for certain or all cou
 ◉ You will receive a terminal output and a file
 
 ◉ Attention! The file with the proxy addresses is overwritten every search.
+
+# Future plans
+
+◉ Add SOCKS5 parsing
+
+◉ Add more sources proxy
+
+◉ Add more work modes
