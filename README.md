@@ -21,3 +21,5 @@ This tool will help you easily get HTTPS or SOCKS proxies for certain or all cou
 ◉ Add more sources proxy
 
 ◉ Add more work modes
+
+◉ Add built-in proxy checker
