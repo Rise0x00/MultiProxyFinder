@@ -11,13 +11,13 @@ def fetch_https_proxies():
         r = requests.get(url, timeout=15)
         r.raise_for_status()
     except requests.RequestException as e:
-        print(f"Ошибка запроса к {url}: {e}")
+        print(f"Request error to {url}: {e}")
         return False
 
     soup = BeautifulSoup(r.text, "html.parser")
     table = soup.find("div", class_="table-responsive fpl-list")
     if not table:
-        print(f"Таблица с прокси не найдена на [ {url} ]")
+        print(f"The proxy table was not found on [ {url} ]")
         return False
 
     rows = table.tbody.find_all("tr")
@@ -41,13 +41,13 @@ def fetch_socks_proxies():
         r = requests.get(url, timeout=15)
         r.raise_for_status()
     except requests.RequestException as e:
-        print(f"Ошибка запроса к {url}: {e}")
+        print(f"Request error to {url}: {e}")
         return False
 
     soup = BeautifulSoup(r.text, "html.parser")
     table = soup.find("div", class_="table-responsive fpl-list")
     if not table:
-        print(f"Таблица с прокси не найдена на [ {url} ]")
+        print(f"The proxy table was not found on [ {url} ]")
         return False
 
     rows = table.tbody.find_all("tr")
@@ -63,7 +63,6 @@ def fetch_socks_proxies():
     return proxies
 
 def main():
-    total_found = 0
     print("Select a protocol (HTTPS, SOCKS4):")
     protocol = input().strip().upper()
 
@@ -90,10 +89,9 @@ def main():
                 if country == "ALL" or ctry.upper() == country:
                     result.append(f"{ip}:{port}")
 
-    # Вывод результата
     print(f"\nFound proxies: {len(result)}\n")
+
     for proxy in result:
-        total_found += 1
         print(proxy)
 
     if not result:
@@ -104,7 +102,7 @@ def main():
             for p in result:
                 f.write(p + "\n")
 
-        print(f"Total found: {total_found} proxies\nProxy list saved to [ {file_name} ]")
+        print(f"Total found: {len(result)} proxies\nProxy list saved to [ {file_name} ]")
 
 if __name__ == "__main__":
     main()
