@@ -3,6 +3,9 @@ Proxy finder for HTTPS and SOCKS proxy
 
 This tool will help you easily get HTTPS or SOCKS proxies for certain or all countries
 
+# Requires
+◉ <code>pip3 install beautifulsoup4</code>
+
 # How to use it?
 ◉ Run the script using <code>python3 main.py</code>
 
