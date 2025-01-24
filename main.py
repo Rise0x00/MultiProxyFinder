@@ -63,24 +63,24 @@ def fetch_socks_proxies():
     return proxies
 
 def main():
-    print("Select a protocol (HTTPS, SOCKS4):")
+    print("Select a protocol ([1] HTTPS, [2] SOCKS4):")
     protocol = input().strip().upper()
+
+    if protocol not in ["HTTPS", "SOCKS4", "1", "2"]:
+        print("Error: invalid protocol. Acceptable values: HTTPS, SOCKS4")
+        main()
 
     print("Select a country (two-letter ISO code, for example 'US', 'RU', 'IT') or 'ALL' for all:")
     country = input().strip().upper()
 
-    if protocol not in ["HTTPS", "SOCKS4"]:
-        print("Error: invalid protocol. Acceptable values: HTTPS, SOCKS4")
-        return
-
-    if protocol == "HTTPS":
+    if protocol == "HTTPS" or "1":
         proxy_list = fetch_https_proxies()
         # format proxy_list(ip, port, country)
         result = []
         for ip, port, ctry in proxy_list:
             if country == "ALL" or ctry.upper() == country:
                 result.append(f"{ip}:{port}")
-    else:
+    elif protocol == "SOCKS4" or "2":
         proxy_list = fetch_socks_proxies()
         # format proxy_list(ip, port, country, version)
         result = []
