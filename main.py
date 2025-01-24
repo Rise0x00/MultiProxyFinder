@@ -1,7 +1,8 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 
-file_name = "Proxies.txt"
+FILE_NAME = "Proxies.txt"
 
 def fetch_https_proxies():
     url = "https://free-proxy-list.net/"
@@ -31,9 +32,10 @@ def fetch_https_proxies():
         is_https = cols[6].text.strip().lower() == "yes"
         if is_https:
             proxies.append((ip, port, country))
+    # format proxy_list(ip, port, country)
     return proxies
 
-def fetch_socks_proxies():
+def fetch_socks4_proxies():
     url = "https://www.socks-proxy.net/"
     proxies = []
 
@@ -60,29 +62,29 @@ def fetch_socks_proxies():
         country = cols[2].text.strip()
         version = cols[4].text.strip()
         proxies.append((ip, port, country, version))
+    # format proxy_list(ip, port, country, version)    
     return proxies
 
 def main():
-    print("Select a protocol ([1] HTTPS, [2] SOCKS4):")
-    protocol = input().strip().upper()
+    protocol = input("Select a protocol ([1] HTTPS, [2] SOCKS4): ").strip().upper()
 
     if protocol not in ["HTTPS", "SOCKS4", "1", "2"]:
         print("Error: invalid protocol. Acceptable values: HTTPS, SOCKS4")
         main()
 
-    print("Select a country (two-letter ISO code, for example 'US', 'RU', 'IT') or 'ALL' for all:")
-    country = input().strip().upper()
+    country = input("Select a country (two-letter ISO code, for example 'US', 'RU', 'IT') or 'ALL' for all: ").strip().upper()
 
     if protocol == "HTTPS" or "1":
+        print("\nFetching HTTPS proxies...")
         proxy_list = fetch_https_proxies()
-        # format proxy_list(ip, port, country)
         result = []
         for ip, port, ctry in proxy_list:
             if country == "ALL" or ctry.upper() == country:
                 result.append(f"{ip}:{port}")
+
     elif protocol == "SOCKS4" or "2":
-        proxy_list = fetch_socks_proxies()
-        # format proxy_list(ip, port, country, version)
+        print("\nFetching SOCKS4 proxies...")
+        proxy_list = fetch_socks4_proxies()
         result = []
         for ip, port, ctry, version in proxy_list:
             if version.lower() == protocol.lower():
@@ -98,11 +100,11 @@ def main():
         print("No proxies found.")
         return
     else:
-        with open(file_name, "w") as f:
+        with open(FILE_NAME, "w") as f:
             for p in result:
                 f.write(p + "\n")
 
-        print(f"Total found: {len(result)} proxies\nProxy list saved to [ {file_name} ]")
+        print(f"Total found: {len(result)} proxies\nProxy list saved to [ {os.path.abspath(FILE_NAME)} ]")
 
 if __name__ == "__main__":
     main()
