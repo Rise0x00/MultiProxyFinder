@@ -11,6 +11,7 @@ def get_country_name(iso_code):
         return country_data[0]['name']['common']
     else:
         return False
+    
 def fetch_https_proxies():
     url = "https://free-proxy-list.net/"
     proxies = []
@@ -100,8 +101,7 @@ def fetch_socks5_proxies():
         country = cols[2].text.strip()
         speed = cols[5].text.strip()
         proxies.append((ip, port, country, speed))
-    # format proxy_list(ip, port, country, speed)  
-    print(proxies)  
+    # format proxy_list(ip, port, country, speed)   
     return proxies
 def main():
     protocol = input("Select a protocol ([1] HTTPS, [2] SOCKS4), [3] SOCKS5: ").strip().upper()
