@@ -104,7 +104,7 @@ def fetch_socks5_proxies():
     # format proxy_list(ip, port, country, speed)   
     return proxies
 def main():
-    protocol = input("Select a protocol ([1] HTTPS, [2] SOCKS4), [3] SOCKS5: ").strip().upper()
+    protocol = input("Select a protocol ([1] HTTPS, [2] SOCKS4, [3] SOCKS5): ").strip().upper()
 
     if protocol not in ["HTTPS", "SOCKS4", "SOCKS5", "1", "2", "3"]:
         print("Error: invalid protocol. Acceptable values: HTTPS, SOCKS4, SOCKS5")
