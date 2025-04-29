@@ -40,7 +40,7 @@ def fetch_https_proxies():
         is_https = cols[6].text.strip().lower() == "yes"
         if is_https:
             proxies.append((ip, port, country))
-    # format proxy_list(ip, port, country)
+    #format proxy_list (ip, port, country)
     return proxies
 
 def fetch_socks4_proxies():
@@ -70,7 +70,7 @@ def fetch_socks4_proxies():
         country = cols[2].text.strip()
         version = cols[4].text.strip()
         proxies.append((ip, port, country, version))
-    # format proxy_list(ip, port, country, version)    
+    #format proxy_list (ip, port, country, version)    
     #print(proxies)
     return proxies
 
@@ -101,14 +101,16 @@ def fetch_socks5_proxies():
         country = cols[2].text.strip()
         speed = cols[5].text.strip()
         proxies.append((ip, port, country, speed))
-    # format proxy_list(ip, port, country, speed)   
+    #format proxy_list(ip, port, country, speed)   
     return proxies
+
 def main():
     protocol = input("Select a protocol ([1] HTTPS, [2] SOCKS4, [3] SOCKS5): ").strip().upper()
 
     if protocol not in ["HTTPS", "SOCKS4", "SOCKS5", "1", "2", "3"]:
-        print("Error: invalid protocol. Acceptable values: HTTPS, SOCKS4, SOCKS5")
+        print("Error: invalid protocol. Acceptable values: HTTPS, SOCKS4, SOCKS5 or 1, 2, 3")
         main()
+        return False
 
     country = input("Select a country (two-letter ISO code, for example 'US', 'RU', 'IT') or 'ALL' for all: ").strip().upper()
 
@@ -155,7 +157,8 @@ def main():
             for p in result:
                 f.write(p + "\n")
 
-        print(f"Total found: {len(result)} proxies\nProxy list saved to [ {os.path.abspath(FILE_NAME)} ]")
+        print(f"""Total found: {len(result)} proxies
+              Proxy list saved to [ {os.path.abspath(FILE_NAME)} ]""")
 
 if __name__ == "__main__":
     main()
